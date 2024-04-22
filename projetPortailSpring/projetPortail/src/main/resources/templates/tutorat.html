@@ -1,0 +1,167 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Tutorat</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./style/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    body, h1, h2, h3, h4, h5, h6 { font-family: "Lato", sans-serif; }
+    .w3-bar, h1, button { font-family: "Montserrat", sans-serif; }
+    .fa-anchor, .fa-coffee { font-size: 200px; }
+    .mainimage {
+      background-image: url(/images/technology-background-1632715.jpg);
+      background-color: aliceblue;
+      text-align: center;
+    }
+    .mainimage > h1 {
+      color: white;
+    }
+    .mainimage > p {
+      color: white;
+    }
+    @media (min-width: 1025px) {
+      .h-custom {
+        height: 100vh !important;
+      }
+    }
+    .search-container > form {
+      display: flex;
+      flex-direction: row;
+    }
+
+    /* Added styles */
+    .ribbon {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #f1f1f1;
+      padding: 10px;
+    }
+
+    .tab-link {
+      color: #555;
+      text-decoration: none;
+      padding: 8px 16px;
+      font-size: 16px;
+      border-bottom: 2px solid transparent;
+      transition: border-bottom-color 0.3s;
+    }
+
+    .tab-link:hover {
+      border-bottom-color: #555;
+    }
+
+    .tab-link.active {
+      border-bottom-color: #555;
+      font-weight: bold;
+    }
+
+    .tab-container {
+      margin-top: 20px;
+    }
+
+    .tab {
+      display: none;
+    }
+
+    .tab.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+<div th:insert="enTete :: header"></div>
+
+<!-- Header -->
+<header class="mainimage" style="padding: 128px 16px;">
+  <h1 class="w3-margin w3-jumbo">Tutorat</h1>
+</header>
+
+<div class="ribbon">
+  <div>
+    <a th:href="@{/tutorat/liste-cours-offerts}" class="tab-link">Liste De Cours Offerts</a>
+    <a th:href="@{/tutorat/liste-tuteurs-par-programme}" class="tab-link">Liste Des Tuteurs Par Programme</a>
+  </div>
+  <!--
+  <div>
+    <select id="ribbon-select" onchange="changeTab()">
+      <option value=""></option>
+      <option value="liste-cours-offerts">Liste De Cours Offerts</option>
+      <option value="liste-tuteurs-par-programme">Liste Des Tuteurs Par Programme</option>
+    </select>
+  </div>
+  -->
+</div>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-twothird">
+      <h1>Portail Aide au Tutorat</h1>
+      <h5 class="w3-padding-32">Bienvenue à l'Aide au Tutorat !
+        Ici, les élèves et les professeurs ont l'opportunité de partager leurs connaissances et de collaborer dans le domaine passionnant de l'informatique.</h5>
+
+      <p class="w3-text-grey">Le tutorat est une formidable opportunité de grandir ensemble. Qu'il s'agisse de soutien scolaire, de mentorat professionnel ou de l'acquisition de nouvelles compétences, nos tuteurs expérimentés sont là pour vous guider et vous accompagner tout au long de votre parcours.</p>
+    </div>
+
+    <div class="w3-third w3-center">
+      <i class="fa fa-anchor w3-padding-64 w3-text-blue"></i>
+    </div>
+  </div>
+</div>
+
+<!-- Second Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-third w3-center">
+      <i class="fa fa-coffee w3-padding-64 w3-text-blue w3-margin-right"></i>
+    </div>
+
+    <div class="w3-twothird">
+      <h1>Question ?</h1>
+      <h5 class="w3-padding-32"></h5>
+
+      <p class="w3-text-grey">N'hésitez pas à poser vos questions, à partager vos connaissances et à vous engager activement dans les discussions. Chacun de nous a des expériences et des compétences uniques, et nous encourageons chacun à contribuer à notre communauté florissante.
+
+        Nous vous souhaitons beaucoup de succès dans votre démarche d'apprentissage. Que ce soit pour relever un défi académique, poursuivre votre passion ou vous préparer pour l'avenir, nous sommes là pour vous soutenir. Ensemble, nous pouvons repousser les limites de notre savoir et atteindre de nouveaux sommets.</p>
+    </div>
+  </div>
+</div>
+<!--
+    <div id="liste-etudiant-en-difficulte" >
+      <h2>Liste D'Etudiant En Difficulte</h2>
+      CODE ICI
+    </div>-->
+  </div>
+
+<div th:insert="footer :: footer"></div>
+
+<script>
+  function changeTab() {
+    var select = document.getElementById("ribbon-select");
+    var tabId = select.value;
+    var tabs = document.getElementsByClassName("tab");
+    alert("HAI "+tabId);//was testing, stuff aint showing properly and i gave up
+    alert("HOI "+tabs.value);
+
+    for (var i = 0; i < tabs.length; i++) {
+      if (tabs[i].id === tabId) {
+        tabs[i].classList.add("active");
+      } else {
+        tabs[i].classList.remove("active");
+      }
+    }
+  }
+</script>
+</body>
+</html>

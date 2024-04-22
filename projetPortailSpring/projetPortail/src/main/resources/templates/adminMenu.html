@@ -1,0 +1,373 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ADMIN MENU</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./style/style.css">
+    <style>
+        body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+        .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+        .fa-anchor,.fa-coffee {font-size:200px}
+        .mainimage{
+            background-image: url(/images/technology-background-1632715.jpg);
+            background-color: aliceblue;
+            text-align: center;
+
+        }
+        .mainimage > h1 {
+            color: white;
+        }
+        .mainimage > p {
+            color: white;
+        }
+        @media (min-width: 1025px) {
+            .h-custom {
+                height: 100vh !important;
+            }
+        }
+        .search-container > form{
+            display:flex;
+            flex-direction: row;
+
+        }
+    </style>
+</head>
+
+
+<body>
+
+<div th:insert="enTete :: header"></div>
+
+<!-- Header -->
+<header class="mainimage" style="padding:128px 16px">
+    <h1 class="w3-margin w3-jumbo">Admin Menu</h1>
+</header>
+
+
+
+
+<div th:if="${projetSucces!=null}" class="alert alert-success text-center">
+    [[${projetSucces}]]
+</div>
+<div th:if="${noteSucces!=null}" class="alert alert-success text-center">
+    [[${noteSucces}]]
+</div>
+<div th:if="${userSucces!=null}" class="alert alert-success text-center">
+    [[${userSucces}]]
+</div>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+    <div class="w3-content">
+        <a th:href="@{/adminPanel/one}">  Voir tout les utilisateurs</a>
+    </div>
+    <div class="w3-content">
+        <a th:href="@{/adminPanel/two}">  Voir tout les projets</a>
+    </div>
+    <div class="w3-content">
+        <a th:href="@{/adminPanel/three}">  Voir tout les notes de cours</a>
+    </div>
+</div>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+    <div class="w3-content">
+        <h1>Ajouter un projet</h1>
+        <form method="post" th:action="@{/projet/save}" th:object="${projet}">
+            <div class="form-group">
+                <label>Nom du projet</label>
+                <input type="text" class="form-control"  name="nomProjet" th:field="*{nomProjet}" required>
+            </div>
+
+            <div class="form-group">
+                <label>Nom du cour</label>
+                <br>
+                <th:block th:each="course :${cours}">
+                    <input name="nomCour" type="checkbox" th:field="*{cour}"
+                           th:text="${course.getNom()}"
+                           th:value="${course.getIdCour()}"
+                           class="m-2"
+                    >
+                    <br>
+                </th:block>
+            </div>
+
+            <div class="form-group">
+                <label>Description</label>
+                <input type="text" class="form-control"  name="description" th:field="*{description}" required>
+            </div>
+            <div class="form-group">
+                <label>Etudiants participants:</label>
+                <input type="text" class="form-control"  name="participants" th:field="*{etudiantsParticipants}" >
+            </div>
+            <div class="form-group">
+                <label>Date Creation</label>
+                <input type="text" class="form-control" name="dateCreation" th:field="*{dateDeCreation}" required>
+            </div>
+            <div class="form-group">
+                <label>Programme</label>
+                <input type="text" class="form-control" name="programme" th:field="*{profilProgramme}" required>
+            </div>
+            <div class="form-group">
+                <label>Superviseur</label>
+                <input type="text" class="form-control" name="superviseur" th:field="*{professeurSuperviseur}" required>
+            </div>
+            <div class="form-group">
+                <label>lienGit</label>
+                <input type="text" class="form-control"  name="lienGitProjet" th:field="*{lien}" required>
+            </div>
+            <div class="form-group">
+                <label>lien Image</label>
+                <input type="text" class="form-control"  name="lienImg" th:field="*{lienImg}" required>
+            </div>
+            <div>
+                <label>Code Permanent</label>
+                <input type="text" class="form-control" name="codepProjet" th:field="*{codeP}" required>
+            </div>
+            <div>
+                <button type="submit"> Submit </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Second Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+    <div class="w3-content">
+        <h1>Ajouter une note de cour</h1>
+        <form action="AddNoteCour" method="POST" th:action="@{/note/save}" th:object="${note}">
+            <div class="form-group">
+                <label>Nom:  </label>
+                <input type="text" class="form-control"  name="nomNote" th:field="*{nomNoteCour}" required>
+            </div>
+            <div class="form-group">
+                <label>Nom du cour</label>
+                <br>
+                <th:block th:each="course :${cours}">
+                    <input name="nomCour" type="checkbox" th:field="*{cour}"
+                           th:text="${course.getNom()}"
+                           th:value="${course.getIdCour()}"
+                           class="m-2"
+                    >
+                    <br>
+                </th:block>
+            </div>
+            <div class="form-group">
+                <label>Lien git: </label>
+                <input type="text" class="form-control"  name="lienGitNote" th:field="*{lien}" required>
+            </div>
+
+            <div class="form-group">
+                <label>Code permanent: </label>
+                <input type="number" class="form-control" name="codepNote" th:field="*{codeP}" required>
+            </div>
+            <div>
+                <button type="submit"> Submit </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <!-- Third Grid -->
+    <div class="w3-row-padding w3-padding-64 w3-container">
+        <div class="w3-content">
+            <h1>Ajouter un Utilisateur</h1>
+            <div>
+                <p> Choisir quel type</p><br />
+                <input id='Etudiant' name='selectType' type='radio' value="etudiant" />etudiant
+                <br />
+                <input id='Professeur' name='selectType' type='radio' value="professeur" />professeur
+            </div>
+            <!--===========================-->
+            <div id = "showEtudiant" style='display:none'>
+                <h2>Type etudiant...</h2>
+                <form method="POST" id = "UserForm" th:action="@{/user/save}" th:object="${user}">
+
+                    <div class="form-group" >
+                        <label>Username: </label>
+                        <input type="text" class="form-control"  name="username" th:field="*{username}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Mot de passe: </label>
+                        <input type="password" class="form-control"  name="password" th:field="*{password}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email : </label>
+                        <input type="email" class="form-control"  name="email" th:field="*{email}">
+                    </div>
+
+                    <div class="form-group" >
+                        <label>Type d'utilisateur: </label>
+                        <select id="type1" name = "typeOfUser" th:field="*{type}">
+                            <option value="etudiant" name = "etudiant" >Etudiant</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Code permanent: </label>
+                        <input type="number" class="form-control" name="codep" th:field="*{codeP}" required>
+                    </div>
+
+                    <!-- Fourth Grid -->
+                    <div class="form-group">
+                        <label>Nom: </label>
+                        <input type="text" class="form-control"  name="nomEtudiant" th:field="*{nom}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Prenom: </label>
+                        <input type="text" class="form-control"  name="prenomEtudiant"th:field="*{prenom}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Date naissance: </label>
+                        <input type="date" name="dateNaissanceEtudiant" th:field="*{dateNaissance}"required>
+                    </div>
+
+                    <div class="form-group" >
+                        <label>Programme: </label>
+                        <select id="program" name = "studentProgram" th:field="*{programme}">
+                            <option value="programmation" name = "programmation">programmation</option>
+                            <option value="reseautique" name = "reseautique">reseautique</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Type etudiant: </label>
+                        <select id="typeStudent" name = "studentType" th:field="*{typeEtudiant}">
+                            <option value="normal" name = "normal">normal</option>
+                            <option value="tuteur" name = "tuteur">tuteur</option>
+                            <option value="difficulte" name = "difficulte">difficulte</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Ancien: </label>
+                        <select id="ancient" name = "ancientOrNot" th:field="*{ancien}">
+                            <option value="oui" name = "oui" th:value="${true}">oui</option>
+                            <option value="non" name = "non" th:value="${false}">non</option>
+                        </select>
+                    </div>
+
+                    <button type="submit"> Submit </button>
+
+                </form>
+
+            </div>
+            <!--===========================-->
+            <!-- Fifth Grid -->
+            <div id = "showProf" style='display:none'>
+
+                <h2>Type professeur...</h2>
+                <form  method="POST" id="profForm" th:action="@{/user/save}" th:object="${user}">
+
+                    <div class="form-group" >
+                        <label>Username: </label>
+                        <input type="text" class="form-control"  name="username" th:field="*{username}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Mot de passe: </label>
+                        <input type="password" class="form-control"  name="password" th:field="*{password} "required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email : </label>
+                        <input type="email" class="form-control"  name="email" th:field="*{email}">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Type d'utilisateur: </label>
+                        <select id="type" name = "typeOfUser" th:field="*{type}">
+                            <option value="professeur" name = "professeur"> Professeur </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Code permanent: </label>
+                        <input type="number" class="form-control" name="codep" th:field="*{codeP}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nom: </label>
+                        <input type="text" class="form-control"  name="nomProf" th:field="*{nom}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Prenom: </label>
+                        <input type="text" class="form-control"  name="prenomProf" th:field="*{prenom}" required>
+                    </div>
+                    <div class="form-group" >
+                        <label>Programme: </label>
+                        <select  name = "teacherProgram" th:field="*{programme}">
+                            <option value="programmation" name = "programmation">programmation</option>
+                            <option value="reseautique" name = "reseautique">reseautique</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Date naissance: </label>
+                        <input type="date" id="dateNaissance" name="dateNaissanceProf" th:field="*{dateNaissance}"required>
+                    </div>
+                    <div id = "showBtn" style='display:none'>
+                        <button type="submit"> Submit </button>
+                    </div>
+
+                </form>
+            </div>
+
+
+    </div>
+</div>
+</div>
+
+
+
+<div th:insert="footer :: footer"></div>
+
+<script>
+
+/*window.onload = function() {
+    if (window.jQuery) {
+        // jQuery is loaded
+        alert("Yeah!");
+    } else {
+        // jQuery is not loaded
+        alert("Doesn't Work");
+    }
+};
+*/
+</script>
+<script>
+    // Used to toggle the menu on small screens when clicking on the menu button
+    function myFunction() {
+        var x = document.getElementById("navDemo");
+        if (x.className.indexOf("w3-show") === -1) {
+            x.className += " w3-show";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+        }
+    }
+
+</script>
+<script>
+    $("input[name='selectType']").click(function () {
+        $('#showEtudiant').css('display', ($(this).val() === 'etudiant')? 'block':'none');
+        $('#showProf').css('display', ($(this).val() === 'professeur')? 'block':'none');
+        $('#showBtn').css('display', (($(this).val() === 'professeur')||($(this).val() === 'etudiant'))? 'block':'none');
+    });
+    submitForms = function(){
+        alert("TEST TO SEE IF EVEN REGISTERED!");
+
+        if (document.getElementById('Etudiant').checked) {
+            alert("ETUDIANT CHOISI!");
+            document.getElementById("studentForm").submit();
+        }else if(document.getElementById('Professeur').checked){
+            alert("PROFESSEUR CHOISI!");
+            document.getElementById("profForm").submit();
+        }
+    };
+</script>
+
+</body>
+</html>

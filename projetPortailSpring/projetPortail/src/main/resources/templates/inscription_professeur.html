@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Inscription</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../style/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <style>
+    body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+    .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+    .fa-anchor,.fa-coffee {font-size:200px}
+    .mainimage{
+      background-image: url(/images/technology-background-1632715.jpg);
+      background-color: aliceblue;
+      text-align: center;
+      padding: 128px 16px;
+    }
+    .mainimage > h1 {
+      color: white;
+    }
+    .mainimage > p {
+      color: white;
+    }
+    @media (min-width: 1025px) {
+      .h-custom {
+        height: 100vh !important;
+      }
+    }
+    .search-container > form{
+      display:flex;
+      flex-direction: row;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    .form-container {
+      width: 400px;
+      padding: 40px;
+      background-color: #f5f5f5;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .form-container label {
+      font-weight: bold;
+    }
+    .form-container input[type="text"],
+    .form-container input[type="email"],
+    .form-container select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    .form-container input[type="radio"] {
+      margin-right: 5px;
+    }
+    .form-container input[type="submit"],
+    .form-container input[type="reset"] {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      background-color: #4CAF50;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .form-container input[type="submit"]:hover,
+    .form-container input[type="reset"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+<div th:insert="enTete :: header"></div>
+<!-- Header -->
+<header class="mainimage">
+  <h1 class="w3-margin w3-jumbo">Inscription</h1>
+</header>
+
+<!-- Form Container -->
+<div class="container">
+  <div class="form-container">
+    <h2>Formulaire D'Inscription Pour Un Professeur</h2>
+
+    <form th:action="@{/newUser/save}" th:object="${utilisateur}" method="POST" onsubmit="return validateForm()">
+
+      <label>Username:</label>
+      <input type="text" th:field="*{username}" required/>
+
+      <label>Nom:</label>
+      <input type="text" th:field="*{nom}" required/>
+
+      <label>Prénom:</label>
+      <input type="text" th:field="*{prenom}" required/>
+
+      <label>Mot De Passe:</label><br>
+      <input type="password" th:field="*{password}" required/>
+
+      <label>Confirmer le mot de passe:</label>
+      <input type="password" id="confirmPassword" required/>
+      <br>
+      <br>
+      <label>Date de Naissance:</label>
+      <input type="date" th:field="*{dateNaissance}" required/> <br><br>
+
+      <label for="programme">Programme:</label>
+      <select id="programme" name="programme" required>
+        <option value="programmation">Programmation</option>
+        <option value="reseautique">Réseautique</option>
+      </select>
+
+      <label>Type:</label>
+      <select id="type" th:field="*{type}" required>
+        <option value="">-- Type De Compte --</option>
+        <option value="etudiant" disabled>Étudiant</option>
+        <option value="professeur" selected>Professeur</option>
+      </select>
+
+        <div>
+          <label>Email:</label>
+          <input type="email" th:field="*{email}" required/>
+
+          <label>Code Permanent:</label>
+          <input id="codeP" type="text" th:field="*{codeP}" minlength="4" maxlength="4" required/>
+        </div>
+
+      <input type="submit" value="S'inscrire" style="background-color: cornflowerblue;"/>
+      <br><br>
+      <input type="reset" value="Réinitialiser" style="background-color: red;"/>
+
+    </form>
+  </div>
+</div>
+
+<script th:inline="javascript">
+  function validateForm() {
+    var password = document.getElementById("password").value;
+    var confirmPassword = document.getElementById("confirmPassword").value;
+
+    if (password !== confirmPassword) {
+      alert("Le mot de passe et la confirmation du mot de passe ne correspondent pas.");
+      return false;
+    }
+
+    return true;
+  }
+</script>
+
+<!-- Footer -->
+<div th:insert="footer :: footer"></div>
+
+<script>
+  // Used to toggle the menu on small screens when clicking on the menu button
+  function myFunction() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+      x.className += " w3-show";
+    } else {
+      x.className = x.className.replace(" w3-show", "");
+    }
+  }
+</script>
+
+</body>
+</html>

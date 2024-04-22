@@ -1,0 +1,135 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<html lang="en">
+    <head>
+        <title>Recherche</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="./style/style.css">
+        <style>
+            body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+            .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+            .fa-anchor,.fa-coffee {font-size:200px}
+            .mainimage{
+                background-image: url(/images/technology-background-1632715.jpg);
+                background-color: aliceblue;
+                text-align: center;
+
+            }
+            .mainimage > h1 {
+                color: white;
+            }
+            .mainimage > p {
+                color: white;
+            }
+            @media (min-width: 1025px) {
+                .h-custom {
+                    height: 100vh !important;
+                }
+            }
+            .search-container > form{
+                display:flex;
+                flex-direction: row;
+
+            }
+        </style>
+    </head>
+
+    <body>
+    <div th:insert="enTete :: header"></div>
+    <!-- Header -->
+    <header class="mainimage" style="padding:128px 16px">
+        <h1 class="w3-margin w3-jumbo">Rechercher Resultat</h1>
+    </header>
+    <div class="w3-content">
+        <input type="hidden" ><br>
+    </div>
+
+    <div th:if="${typeT!=false}" class="w3-content">
+
+        <br>
+        <div th:if="${projectPresenceT!=false}">
+            <div th:each="projet:${ProjetsT}">
+                <tr>
+                    <td>▶</td>
+                    <td>(Projet)</td>
+                    <td><a th:href="@{'/profile_click/projet/' + ${projet.getIdProjet()}}">[[${projet.getCodeP()}]]</a></td>--
+                    <td th:text="${projet.getDescription()}"></td>--
+                    <td th:text="${projet.getCour().getNom()}"></td>--
+                    <td th:text="${projet.getNomProjet()}"></td>--
+                    <td th:text="${projet.getProfilProgramme()}"></td>
+                </tr>
+            </div>
+        </div>
+        <br>
+        <div th:if="${notePresenceT!=false}">
+
+            <div th:each="note:${NotesT}">
+                <tr>
+                    <td>▶</td>
+                    <td>(Note)</td>
+                    <td><a th:href="@{'/profile_click/noteCour/' + ${note.getIdNotecours()}}">[[${note.getCodeP()}]]</a></td>--
+                    <td th:text="${note.getCour().getNom()}"></td>--
+                    <td th:text="${note.getNomNoteCour()}"></td>
+                </tr>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div th:if="${typeN!=false}" class="w3-content">
+
+        <br>
+        <div th:if="${projectPresenceC!=false}">
+
+            <div th:each="projet:${ProjetsC}">
+                <tr>
+                    <td>▶</td>
+                    <td>(Projet)</td>
+                    <td><a th:href="@{'/profile_click/projet/' + ${projet.getIdProjet()}}">[[${projet.getCodeP()}]]</a></td>--
+                    <td th:text="${projet.getDescription()}"></td>--
+                    <td th:text="${projet.getCour().getNom()}"></td>--
+                    <td th:text="${projet.getNomProjet()}"></td>--
+                    <td th:text="${projet.getProfilProgramme()}"></td>
+                </tr>
+            </div>
+        </div>
+        <br>
+        <div th:if="${notePresenceC!=false}">
+
+            <div th:each="note:${NotesC}">
+                <tr>
+                    <td>▶</td>
+                    <td>(Note)</td>
+                    <td><a th:href="@{'/profile_click/noteCour/' + ${note.getIdNotecours()}}">[[${note.getCodeP()}]]</a></td>--
+                    <td th:text="${note.getCour().getNom()}"></td>--
+                    <td th:text="${note.getNomNoteCour()}"></td>
+                </tr>
+            </div>
+        </div>
+    </div>
+    <br>
+
+
+    <!-- return btn-->
+    <div class="w3-row-padding w3-padding-64 w3-container">
+        <div class="w3-content">
+            <div class="search-container">
+                <form th:action="@{/search}" method="get">
+                    <button type="submit">Retour</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- shown result-->
+
+    <div th:insert="footer :: footer"></div>
+    </body>
+</html>

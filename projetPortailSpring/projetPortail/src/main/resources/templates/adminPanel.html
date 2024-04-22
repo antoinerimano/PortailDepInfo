@@ -1,0 +1,196 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Projets</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+            <link rel="stylesheet" href="./style/style.css">
+            <style>
+                body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+                .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+                .fa-anchor,.fa-coffee {font-size:200px}
+                .mainimage{
+                    background-image: url(/images/technology-background-1632715.jpg);
+                    background-color: aliceblue;
+                    text-align: center;
+
+                }
+                .mainimage > h1 {
+                    color: white;
+                }
+                .mainimage > p {
+                    color: white;
+                }
+                @media (min-width: 1025px) {
+                    .h-custom {
+                        height: 100vh !important;
+                    }
+                }
+                .search-container > form{
+                    display:flex;
+                    flex-direction: row;
+
+                }
+            </style>
+            </head>
+<body>
+
+<div th:insert="enTete :: header"></div>
+
+<!-- Header -->
+<header class="mainimage" style="padding:128px 16px">
+    <h1 class="w3-margin w3-jumbo">Admin Panel</h1>
+</header>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+    <div class="w3-content">
+        <div th:if="${messageMod!=null}" class="alert alert-success text-center" style="text-align: center;color:red;">
+            [[${messageMod}]]
+            <hr>
+        </div>
+        <div th:if="${messageDel!=null}" class="alert alert-success text-center" style="text-align: center;color:red;">
+            [[${messageDel}]]
+            <hr>
+        </div>
+
+        <table class="w3-table">
+            <div th:if="${panel == 1}" style="font-size: 18px">
+                <th>Ancien: </th>
+                <th>Email: </th>
+                <th>Nom Utilisateur: </th>
+                <th>Mot de Passe: </th>
+                <th>Code permanent: </th>
+                <th>Nom: </th>
+                <th>Prenom: </th>
+                <th>Naissance: </th>
+                <th>Type:</th>
+                <th>Type etudiant: </th>
+                <div th:each="utilisateur:${utilisateurs}">
+                    <tr style="font-size: 10px">
+                        <td th:text="${utilisateur.getAncien()}"></td>
+                        <td th:text="${utilisateur.getEmail()}"></td>
+                        <td th:text="${utilisateur.getUsername()}"></td>
+                        <td th:text="${utilisateur.getPassword()}"></td>
+                        <td th:text="${utilisateur.getCodeP()}"></td>
+                        <td th:text="${utilisateur.getNom()}"></td>
+                        <td th:text="${utilisateur.getPrenom()}"></td>
+                        <td th:text="${utilisateur.getDateNaissance()}"></td>
+                        <td th:text="${utilisateur.getType()}"></td>
+                        <td th:text="${utilisateur.getTypeEtudiant()}"></td>
+                        <td><a class="icon-green" th:href="@{'/utilisateur/edit/' + ${utilisateur.getIdUtilisateur()}}" title="Editer cet utilisareur">Editer</a></td>
+                        <td><a class="link-delete"
+                           th:href="@{'/utilisateur/delete/' + ${utilisateur.getIdUtilisateur()}}"
+                           th:userId="${utilisateur.getIdUtilisateur()}"
+                           title="Supprimer cet utilisateur">Supprimer [[${utilisateur.getIdUtilisateur()}]]
+                        </a></td>
+                    </tr>
+                </div>
+            </div>
+            <div th:if="${panel == 2}">
+
+                <th>Code Permanent: </th>
+                <th>Date de creation: </th>
+                <th>Description: </th>
+                <th>Participants: </th>
+                <th>Lien: </th>
+                <th>Image: </th>
+                <th>Cour: </th>
+                <th>Nom: </th>
+                <th>Note: </th>
+                <th>Superviseur: </th>
+                <th>Profil: </th>
+                <div th:each="projet:${projets}" style="font-size:10px;">
+                    <tr style="font-size:10px;">
+                        <td th:text="${projet.getCodeP()}"></td>
+                        <td th:text="${projet.getDateDeCreation()}"></td>
+                        <td th:text="${projet.getDescription()}"></td>
+                        <td th:text="${projet.getEtudiantsParticipants()}"></td>
+                        <td th:text="${projet.getLien()}"></td>
+                        <td th:text="${projet.getLienImg()}"></td>
+                        <td th:text="${projet.getCour().getNom()}"></td>
+                        <td th:text="${projet.getNomProjet()}"></td>
+                        <td th:text="${projet.getCour().getNom()}"></td>
+                        <td th:text="${projet.getProfesseurSuperviseur()}"></td>
+                        <td th:text="${projet.getProfilProgramme()}"></td>
+                    </tr>
+                    <tr style="font-size:10px;">
+                        <td><a class="icon-green" th:href="@{'/projet/edit/' + ${projet.getIdProjet()}}" title="Editer ce projet">Editer</a></td>
+                        <td><a class="link-delete"
+                               th:href="@{'/projet/delete/' + ${projet.getIdProjet()}}"
+                               th:userId="${projet.getIdProjet()}"
+                               title="Supprimer ce projet">Supprimer [[${projet.getIdProjet()}]]
+                        </a></td>
+                    </tr>
+                    <tr>
+                        <td><hr></td>
+                    </tr>
+                </div>
+            </div>
+            <div th:if="${panel == 3}">
+
+                <th>Code permanent: </th>
+                <th>Cour: </th>
+                <th>Date de creation: </th>
+                <th>Nom: </th>
+                <th>Lien: </th>
+                <div th:each="note:${notes}">
+                    <tr>
+                        <td th:text="${note.getCodeP()}"></td>
+                        <td th:text="${note.getCour().getNom()}"></td>
+                        <td th:text="${note.getDateDeCreation()}"></td>
+                        <td th:text="${note.getNomNoteCour()}"></td>
+                        <td th:text="${note.getLien()}"></td>
+                        <td><a class="icon-green" th:href="@{'/noteCour/edit/' + ${note.getIdNotecours()}}" title="Editer ce note de cour">Editer</a></td>
+                        <td><a class="link-delete"
+                               th:href="@{'/noteCour/delete/'+ ${note.getIdNotecours()}}"
+                               th:userId="${note.getIdNotecours()}"
+                               title="Supprimer ce note de cour">Supprimer [[${note.getIdNotecours()}]]
+                        </a></td>
+                    </tr>
+                </div>
+            </div>
+        </table>
+    </div>
+    <!-- return btn-->
+    <div class="w3-row-padding w3-padding-64 w3-container">
+        <div class="w3-content">
+            <div class="search-container">
+                <form th:action="@{/creation/new}" method="get">
+                    <button type="submit">Retour</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+<!-- Second Grid -->
+
+<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
+    <h1 class="w3-margin w3-xlarge">Bienvenue sur la page des projets</h1>
+</div>
+
+<div th:insert="footer :: footer"></div>
+
+<script>
+    // Used to toggle the menu on small screens when clicking on the menu button
+    function myFunction() {
+        var x = document.getElementById("navDemo");
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+        }
+    }
+</script>
+
+</body>
+</html>

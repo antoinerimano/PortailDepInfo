@@ -1,0 +1,57 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>En tete</title>
+    <style>
+        body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+        .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+        .fa-anchor,.fa-coffee {font-size:200px}
+        .right{
+            float:right;
+        }
+    </style>
+</head>
+<body>
+<!-- Navbar -->
+<div class="w3-top" th:fragment="header">
+    <div class="w3-bar w3-blue w3-card w3-left-align w3-large">
+        <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-text-white" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+        <a th:href="@{/}" class="w3-bar-item w3-button w3-padding-large">Accueil</a>
+        <a th:href="@{/projet}" class="w3-bar-item w3-button w3-padding-large">Projet</a>
+        <a th:href="@{/noteCour}" class="w3-bar-item w3-button w3-padding-large">Notes</a>
+        <a th:href="@{/tutorat/accueil}" class="w3-bar-item w3-button w3-padding-large">Tutorat</a>
+
+
+        <div class="w3-right">
+            <a th:if="${session.codeP == null}" th:href="@{/utilisateur/connexion}" class="w3-bar-item w3-button w3-padding-large">Connexion</a>
+            <a th:if="${session.codeP == null}" th:href="@{/utilisateur/inscription}" class="w3-bar-item w3-button w3-padding-large">S'inscrire</a>
+            <a th:if="${session.codeP != null}" th:href="@{/deconnexion}" class="w3-bar-item w3-button w3-padding-large">Deconnexion</a>
+            <a th:if="${session.codeP != null}" th:href="@{/profile}" class="w3-bar-item w3-button w3-padding-large">Profil</a>
+        </div>
+
+        <a th:href="@{/admin/login}" class="w3-bar-item w3-button w3-padding-large">Admin</a>
+        <a th:href="@{/search}" class="w3-bar-item w3-button w3-padding-large">Rechercher</a>
+    </div>
+
+    <!-- Navbar on small screens -->
+    <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+        <a th:href="@{/}" class="w3-bar-item w3-button w3-padding-large">Accueil</a>
+        <a th:href="@{/projet}" class="w3-bar-item w3-button w3-padding-large">Projet</a>
+        <a th:href="@{/noteCour}" class="w3-bar-item w3-button w3-padding-large">Notes</a>
+        <a th:href="@{/tutorat/accueil}" class="w3-bar-item w3-button w3-padding-large">Tutorat</a>
+
+
+        <div class="w3-right">
+            <a th:if="${session.codeP == null}" th:href="@{/utilisateur/connexion}" class="w3-bar-item w3-button w3-padding-large">Connexion</a>
+            <a th:if="${session.codeP == null}" th:href="@{/utilisateur/inscription}" class="w3-bar-item w3-button w3-padding-large">S'inscrire</a>
+            <a th:if="${session.codeP != null}" th:href="@{/deconnexion}" class="w3-bar-item w3-button w3-padding-large">Deconnexion</a>
+            <a th:if="${session.codeP != null}" th:href="@{/profile}" class="w3-bar-item w3-button w3-padding-large">Profil</a>
+        </div>
+
+        <a th:href="@{/admin/login}" class="w3-bar-item w3-button w3-padding-large">Admin</a>
+        <a th:href="@{/search}" class="w3-bar-item w3-button w3-padding-large">Rechercher</a>
+    </div>
+</div>
+</body>
+</html>

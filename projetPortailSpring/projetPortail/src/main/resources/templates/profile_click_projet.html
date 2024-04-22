@@ -1,0 +1,82 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<html lang="en">
+<head>
+  <title>Profil Projet</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="./style/style.css">
+  <style>
+    body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+    .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+    .fa-anchor,.fa-coffee {font-size:200px}
+    .mainimage{
+      background-image: url(/images/white.jpg);
+      background-color: aliceblue;
+      text-align: center;
+
+    }
+    .mainimage > h1 {
+      color: white;
+    }
+    .mainimage > p {
+      color: white;
+    }
+    @media (min-width: 1025px) {
+      .h-custom {
+        height: 100vh !important;
+      }
+    }
+    .search-container > form{
+      display:flex;
+      flex-direction: row;
+
+    }
+  </style>
+</head>
+
+<body>
+<div th:insert="enTete :: header"></div>
+
+<div th:if="typeP!=false">
+  <header class="mainimage" style="padding:128px 16px">
+    <h2 class="w3-margin w3-jumbo" th:text="${projet.getNomProjet()}"></h2>
+    <h5>Auteur: [[${utilisateurP.getUsername()}]] ([[${utilisateurP.getNom()}]])</h5>
+    <video width="400" controls>
+      <source src="/videos/sample.mp4" type="video/mp4">
+      Your browser does not support HTML video.
+    </video>
+  </header>
+  <div class="w3-row-padding w3-padding-64 w3-container">
+    <div class="w3-content">
+      <h6 th:text="${projet.getDescription()}"></h6>
+      <p>=======================================</p>
+      <h6>Créé le : [[${projet.getDateDeCreation()}]]</h6>
+      <h6>Pour le cour: [[${projet.getCour().getNom()}]]</h6>
+      <h6>Superviseur: [[${projet.getProfesseurSuperviseur()}]]</h6>
+      <h6>Profil: [[${projet.getProfilProgramme()}]]</h6>
+      <p>=======================================</p>
+      <form th:action="@{/search}" method="get">
+        <button type="submit">Envoyer une demande d'accès au lien</button>
+      </form>
+      <p>Pour me contacter: <a th:href="'mailto:'+${utilisateurP.getEmail()}" th:text="${utilisateurP.getEmail()}"></a></p>
+
+    </div>
+  </div>
+
+
+</div>
+
+
+
+<!-- shown result-->
+
+<div th:insert="footer :: footer"></div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+create a update method for all DAO
+---
+when using the find methods,we can use a append (search word like nom, prenom, etc)
+--------
+TÂCHES GIT pour SPRINT2:
+
+connexion
+deconnexion
+--ERGO, show profile after connexion: create a new object on the bar called Profil
+--> will show profil for the moment(nom, codeP) if not connected, redirect to connexion
+
+creerUnCompte
+
+searchBar(Recherche)
+
+afficherToutsLesProjets
+
+afficherToutsLesNotes
+
+ADMIN WORK(afficher touts les utilisateur-student/teacher,afficher tout les notes/projets,
+afficher tout les tuteurs/etudiants en difficultes)
+------------
+MUST DO JSTL LIB IMPLEMENTATION -->RECHERCHER!!
+-----------
+connexion (open session+ cookies if they want remembered)
+deconnexion(close session+ purge the cookies)
+-----
+Specifications on the admin functions to do:
+
+Add, modify, delete : utilisateur (automatically deletes also the etudiant/prof -tuteur/etudiantdiff with it)
+show all user
+(prof+etudiant)
+
+optional but a filtering system
+
+Annik: when i finish the search bar, the first thing ill try is to show the users first
+(TEST TEST TEST)
+
+------------------
+For the searchbar:
+
+search by:
+username,nom,prenom,codeP,dateNaissance(probs have to modify this too)
+
+
+

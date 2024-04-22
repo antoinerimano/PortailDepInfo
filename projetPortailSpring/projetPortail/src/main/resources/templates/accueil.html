@@ -1,0 +1,122 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Portail d'informatique</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/style/style.css">
+    <style>
+        body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+        .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+        .fa-anchor,.fa-coffee {font-size:200px}
+        .mainimage{
+            background-image: url(/images/technology-background-1632715.jpg);
+            background-color: aliceblue;
+            text-align: center;
+
+        }
+        .mainimage > h1 {
+            color: white;
+        }
+        .mainimage > p {
+            color: white;
+        }
+        @media (min-width: 1025px) {
+            .h-custom {
+                height: 100vh !important;
+            }
+        }
+        .search-container > form{
+            display:flex;
+            flex-direction: row;
+        }
+        .centered-h1 {
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+
+<div th:insert="enTete :: header"></div>
+
+<!-- Header -->
+<div class="mainimage" style="padding:128px 16px;">
+    <h1 class="w3-margin w3-jumbo">Portail du département de l'informatique</h1>
+    <p class="w3-xlarge">Page d'Accueil</p>
+    <p><a th:href="@{/projet}"> Voir les projets </a><p>
+
+
+</div>
+<div th:if="${successLogin!=null}" class="alert-success text-center" style="text-align: center">
+    [[${successLogin}]]
+</div>
+<h1 class="centered-h1" th:text="${message}"></h1>  <!-- Message de succes register -->
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+    <div class="w3-content">
+        <div class="w3-twothird">
+            <h1>Portail d'informatique</h1>
+            <h5 class="w3-padding-32">Bienvenue sur notre site dédié à l'informatique !
+                Ici, les élèves et les professeurs ont l'opportunité de partager leurs connaissances et de collaborer dans le domaine passionnant de l'informatique.</h5>
+
+            <p class="w3-text-grey">Que vous soyez étudiant en quête de nouveaux projets ou enseignant désireux de diffuser vos notes de cours, notre plateforme est conçue pour répondre à vos besoins.
+                Nous avons créé un espace où l'apprentissage et l'échange sont mis en avant, afin que vous puissiez développer vos compétences en informatique et contribuer à l'évolution de cette discipline.</p>
+        </div>
+
+        <div class="w3-third w3-center">
+            <i class="fa fa-anchor w3-padding-64 w3-text-blue"></i>
+        </div>
+    </div>
+</div>
+
+<!-- Second Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+    <div class="w3-content">
+        <div class="w3-third w3-center">
+            <i class="fa fa-coffee w3-padding-64 w3-text-blue w3-margin-right"></i>
+        </div>
+
+        <div class="w3-twothird">
+            <h1>Notre But</h1>
+            <h5 class="w3-padding-32">Déposez vos projets et vos notes de cours en toute simplicité. Partagez vos idées novatrices, vos réalisations exceptionnelles et vos découvertes récentes avec la communauté. Notre site vous permet d'accéder à une vaste bibliothèque de ressources, où vous pourrez consulter des projets inspirants et des cours approfondis pour enrichir votre apprentissage.</h5>
+
+            <p class="w3-text-grey">Profitez également de notre fonctionnalité de collaboration, qui vous permet de trouver des partenaires de projet, d'échanger des idées et de travailler ensemble sur des projets passionnants. Vous aurez ainsi l'occasion de développer vos compétences techniques, d'améliorer votre compréhension des concepts clés et de cultiver votre créativité.
+
+                Que vous soyez débutant, étudiant avancé ou enseignant chevronné, notre site est ouvert à tous les niveaux d'expertise. Nous croyons fermement que l'apprentissage est un processus continu, et nous sommes déterminés à fournir une plateforme qui favorise la croissance individuelle et collective.
+
+                Rejoignez notre communauté dynamique dès maintenant et participez à l'essor de l'informatique ! Ensemble, nous pouvons repousser les limites de la technologie et créer un avenir numérique plus prometteur.
+
+                Inscrivez-vous dès aujourd'hui et plongez dans l'univers passionnant de l'informatique !</p>
+        </div>
+    </div>
+</div>
+
+<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
+    <h1 class="w3-margin w3-xlarge">Bienvenue sur la page d'accueil</h1>
+</div>
+
+
+<div th:insert="footer :: footer"></div>
+
+
+<script>
+    // Used to toggle the menu on small screens when clicking on the menu button
+    function myFunction() {
+        var x = document.getElementById("navDemo");
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+        }
+    }
+</script>
+
+</body>
+</html>

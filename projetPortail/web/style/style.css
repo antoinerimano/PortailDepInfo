@@ -1,0 +1,25 @@
+.mainimage{
+    background-image: url(../image/technology-background-1632715.jpg);
+    background-color: #cccccc;
+    text-align: center;
+    
+}
+.mainimage > h1 {
+    color: white;
+}
+.mainimage > p {
+    color: white;
+}
+@media (min-width: 1025px) {
+    .h-custom {
+    height: 100vh !important;
+    }
+}
+.search-container > form{
+    display:flex;
+    flex-direction: row;
+    
+}
+
+
+

@@ -1,0 +1,18 @@
+Class to create:
+
+utilisateur:
+--etudiant
+--professeur
+
+compte
+
+projet
+
+noteCours(matériel)
+
+RecommendationLivre
+------
+For db: utilisateur should be reworked on,
+
+
+

@@ -1,0 +1,228 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Projet</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="./style/style.css">
+    <style>
+        body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+        .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+        .fa-anchor,.fa-coffee {font-size:200px}
+        .mainimage{
+            background-image: url(/images/technology-background-1632715.jpg);
+            background-color: aliceblue;
+            text-align: center;
+
+        }
+        .mainimage > h1 {
+            color: white;
+        }
+        .mainimage > p {
+            color: white;
+        }
+        @media (min-width: 1025px) {
+            .h-custom {
+                height: 100vh !important;
+            }
+        }
+        .search-container > form{
+            display:flex;
+            flex-direction: row;
+
+        }
+    </style>
+</head>
+<body>
+
+<div th:insert="enTete :: header"></div>
+
+<!-- Header -->
+<header class="mainimage" style="padding:128px 16px">
+    <h1 class="w3-margin w3-jumbo">Edit Projet</h1>
+</header>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+    <div class="w3-content">
+        <form  th:action="@{/projet/edit}" method="post" style="max-width: 700px; margin: 0 auto" enctype="multipart/form-data"
+               th:object="${Projet}" >
+            <input type="hidden" th:field="*{idProjet}" />
+            <div class="border border-secondary rounded p-3">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Code permanent du createur:</label>
+                    <div class="col-sm-8">
+                        <input type="hidden" th:field="*{codeP}" />
+                        <h3 th:text="${Projet.getCodeP()}"></h3>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Titre:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" th:field="*{nomProjet}"  required minlength="2" maxlength="128" th:placeholder="*{nomProjet}" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Description:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" th:field="*{description}" required minlength="2" maxlength="400"  th:placeholder="*{description}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Nom du cour</label>
+                    <br>
+                    <th:block th:each="course :${listeCours}">
+                        <input name="nomCour" type="checkbox" th:field="*{cour}"
+                               th:text="${course.getNom()}"
+                               th:value="${course.getIdCour()}"
+                               class="m-2"
+                        >
+                        <br>
+                    </th:block>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Superviseur :</label>
+                    <div class="col-sm-8">
+                        <input  type="text" class="form-control" th:field="*{professeurSuperviseur}"
+                                required minlength="8" maxlength="100"  th:placeholder="*{professeurSuperviseur}"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Profil programme :</label>
+                    <div class="col-sm-8">
+                        <input type="checkbox" id="programmation" name="profil" value="programmation" th:field="*{profilProgramme}" checked>
+                        <label for="programmation">Programmation</label><br>
+                        <input type="checkbox" id="reseautique" name="profil" value="reseautique" th:field="*{profilProgramme}">
+                        <label for="reseautique">Reseautique</label><br>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Date de creation:</label>
+                    <div class="col-sm-8">
+                        <h5>Veuillez ecrire dans ce format: annee/mois/jour </h5>
+                        <input type="text" class="form-control" th:field="*{dateDeCreation}" required minlength="10" maxlength="10" th:placeholder="*{dateDeCreation}" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Etudiant(s) participants:</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" th:field="*{etudiantsParticipants}" minlength="0" maxlength="400"  th:placeholder="*{etudiantsParticipants}"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">Lien :</label>
+                    <div class="col-sm-8">
+                        <input  type="text" class="form-control" th:field="*{lien}"
+                                required minlength="8" maxlength="500"  th:placeholder="*{lien}"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Photo:</label>
+                    <div class="col-sm-10">
+                        <input type="file" id="fileImage" name="fileImage"/>
+                    </div>
+                </div>
+                <br>
+
+                <div class="text-center">
+                    <input type="submit" value="Entregistrer" class="btn btn-primary m-3" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- return btn-->
+    <div class="w3-row-padding w3-padding-64 w3-container">
+        <div class="w3-content">
+            <div class="search-container">
+                <form th:action="@{/adminPanel/two}" method="get">
+                    <button type="submit">Retour</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Second Grid -->
+
+    <div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
+        <h1 class="w3-margin w3-xlarge">Modification Projet</h1>
+    </div>
+
+    <div th:insert="footer :: footer"></div>
+
+    <!--Model dialogue -->
+    <div class="modal fade text-center" id="modalDialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modalTitle">Avertissement</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <span id="modalBody"></span>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function  checkNomProjetUnique(form){
+            alert("Verifier email"+$("#nomProjet").val());
+
+            $.ajax({
+                type:"POST",
+                url :'[[@{/projet/check_titre_unique}]]',
+                data: {nomProjet:$("#nomProjet").val()},
+                success: function (data) {
+                    // alert("Reponse venant du serveur : " + data);
+                    if(data=='OK'){
+                        form.submit();
+                    }else{
+                        showModalDialog("Avertissement","Il y a déjà un projet avec le titre : " + $("#nomProjet").val());
+                    }
+
+                }
+
+            })
+            return false;
+        }
+
+        function showModalDialog(title,message){
+            $("#modalTitle").text(title);
+            $("#modalBody").text(message);
+            $('#modalDialog').modal();
+        }
+
+        $("#buttonCancel").on("click", function (){
+
+            window.location ="[[@{/adminMenu}]]";
+
+        });
+    </script>
+
+</div>
+
+<script>
+    // Used to toggle the menu on small screens when clicking on the menu button
+    function myFunction() {
+        var x = document.getElementById("navDemo");
+        if (x.className.indexOf("w3-show") == -1) {
+            x.className += " w3-show";
+        } else {
+            x.className = x.className.replace(" w3-show", "");
+        }
+    }
+</script>
+
+</body>
+</html>
